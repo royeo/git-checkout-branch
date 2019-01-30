@@ -17,8 +17,7 @@ var (
 	listRemote bool
 )
 
-const usage = `The git-checkout-branch command is a wrapper for the git command that
-supports for switching branches interactively.
+const usage = `Switch git branch interactively.
 
 Usage:
   git checkout-branch [flags]
