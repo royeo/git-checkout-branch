@@ -7,6 +7,7 @@ jobs:
     working_directory: /go/src/github.com/royeo/git-checkout-branch
     steps:
       - checkout
+      - run: go get ./...
       - run: make tool
       - run: make lint
       - run: make test
