@@ -62,11 +62,11 @@ func main() {
 	var branches []*Branch
 	switch {
 	case listAll:
-		branches = AllBranches()
+		branches = allBranches()
 	case listRemote:
-		branches = RemoteBranches()
+		branches = remoteBranches()
 	default:
-		branches = LocalBranches()
+		branches = localBranches()
 	}
 
 	if len(branches) == 0 {
@@ -75,7 +75,7 @@ func main() {
 
 	branch := selectBranch(branches, listSize)
 	if branch != nil {
-		CheckoutBranch(branch)
+		checkoutBranch(branch)
 	}
 }
 

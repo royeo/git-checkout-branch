@@ -9,24 +9,24 @@ type Branch struct {
 	Name string
 }
 
-// CurrentBranch returns the current branch.
-func CurrentBranch() *Branch {
+// currentBranch returns the current branch.
+func currentBranch() *Branch {
 	name := strings.TrimSpace(cmdOutput("git", "rev-parse", "--abbrev-ref", "HEAD"))
 	return &Branch{Name: name}
 }
 
-// LocalBranches returns the local branches.
-func LocalBranches() []*Branch {
+// localBranches returns the local branches.
+func localBranches() []*Branch {
 	return splitBranch(cmdOutput("git", "branch"))
 }
 
-// AllBranches returns both remote-tracking branches and local branches.
-func AllBranches() []*Branch {
+// allBranches returns both remote-tracking branches and local branches.
+func allBranches() []*Branch {
 	return splitBranch(cmdOutput("git", "branch", "-a"))
 }
 
-// RemoteBranches returns the remote-tracking branches.
-func RemoteBranches() []*Branch {
+// remoteBranches returns the remote-tracking branches.
+func remoteBranches() []*Branch {
 	return splitBranch(cmdOutput("git", "branch", "-r"))
 }
 
@@ -44,8 +44,8 @@ func splitBranch(output string) []*Branch {
 	return branches
 }
 
-// CheckoutBranch switch to the selected branch.
-func CheckoutBranch(b *Branch) {
+// checkoutBranch switch to the selected branch.
+func checkoutBranch(b *Branch) {
 	cmdRun("git", "checkout", extractBranch(b.Name))
 }
 
