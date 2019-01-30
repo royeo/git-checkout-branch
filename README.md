@@ -13,7 +13,7 @@ The `git checkout-branch` command is a custom git command to improve the efficie
 
 ## Installation
 
-Use `go get` to install the `checkout-branch` command:
+Use `go get` to install the `git checkout-branch` command:
 
 ```sh
 go get github.com/royeo/git-checkout-branch
