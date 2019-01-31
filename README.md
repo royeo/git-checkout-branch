@@ -11,6 +11,10 @@ The `git checkout-branch` command is a custom git command to improve the efficie
 
 ![](https://raw.githubusercontent.com/royeo/static/master/git-checkout-branch.gif)
 
+- Use the arrow keys to navigate: `↓` `↑` `→` `←`
+- You can also move up and down using `j` and `k`
+- Use `/` to toggle search
+
 ## Installation
 
 Use `go get` to install the `git checkout-branch` command:
