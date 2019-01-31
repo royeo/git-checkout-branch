@@ -19,7 +19,7 @@ Use `go get` to install the `git checkout-branch` command:
 go get github.com/royeo/git-checkout-branch
 ```
 
-It is recommended to set the alias of the `checkout-branch` command, such as `cb`.
+It is recommended to set up an alias for `checkout-branch`, such as `cb`.
 
 ```sh
 git config --global alias.cb checkout-branch
