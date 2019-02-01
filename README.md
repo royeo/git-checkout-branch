@@ -24,6 +24,14 @@ Use `go get` to install the `git checkout-branch` command:
 go get github.com/royeo/git-checkout-branch
 ```
 
+> Make sure the `$GOPATH/bin` folder is in your `PATH`.
+
+If you are using the GO1.11 module, use the following command to install:
+
+```sh
+GO111MODULE=off go get github.com/royeo/git-checkout-branch
+```
+
 It is recommended to set up an alias for `checkout-branch`, such as `cb`.
 
 ```sh
