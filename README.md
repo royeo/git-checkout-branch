@@ -7,8 +7,8 @@ The `git checkout-branch` command is a custom git command to improve the efficie
 
 ## Features
 
-- switch git branch interactively
-- search git branch dynamically
+- Switch git branch interactively
+- Search git branch dynamically
 
 ## Overview
 
