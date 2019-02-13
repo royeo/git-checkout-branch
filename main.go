@@ -24,7 +24,7 @@ var rootCmd = &cobra.Command{
 	Short: "Checkout git branches more efficiently.",
 	Run: func(cmd *cobra.Command, args []string) {
 		if len(args) > 0 {
-			cmd.Usage()
+			cmd.Help()
 			os.Exit(1)
 		}
 
@@ -63,8 +63,7 @@ Flags:
   -a, --all          List both remote-tracking branches and local branches
   -r, --remotes      List the remote-tracking branches
   -n, --number       Set the number of branches displayed in the list (default 10)
-      --hide-help    Hide the help information
-  -h, --help         Help for git-checkout-branch`
+      --hide-help    Hide the help information`
 		fmt.Println(usage)
 		os.Exit(1)
 		return nil

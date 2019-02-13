@@ -3,9 +3,12 @@
 [![CircleCI](https://circleci.com/gh/royeo/git-checkout-branch.svg?style=shield)](https://circleci.com/gh/royeo/git-checkout-branch)
 [![Go Report Card](https://goreportcard.com/badge/royeo/git-checkout-branch)](https://goreportcard.com/report/royeo/git-checkout-branch)
 
-Switch git branches interactively.
-
 The `git checkout-branch` command is a custom git command to improve the efficiency of switching branches.
+
+## Features
+
+- switch git branch interactively
+- search git branch dynamically
 
 ## Overview
 
@@ -43,15 +46,16 @@ git config --global alias.cb checkout-branch
 Use `git checkout-branch help` for help information.
 
 ```
-Switch git branch interactively.
+Checkout git branches more efficiently.
 
 Usage:
   git checkout-branch [flags]
 
 Flags:
-  -r    List the remote-tracking branches
-  -a    List both remote-tracking branches and local branches
-  -n    Set the number of branches displayed in the list, defaults to 10
+  -a, --all          List both remote-tracking branches and local branches
+  -r, --remotes      List the remote-tracking branches
+  -n, --number       Set the number of branches displayed in the list (default 10)
+      --hide-help    Hide the help information
 ```
 
 ## License
