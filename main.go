@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/manifoldco/promptui"
+	"github.com/spf13/cobra"
 )
 
 var (
@@ -15,70 +16,69 @@ var (
 	listSize   int
 	listAll    bool
 	listRemote bool
+	hideHelp   bool
 )
 
-const usage = `Switch git branch interactively.
+var rootCmd = &cobra.Command{
+	Use:   "git checkout-branch",
+	Short: "Checkout git branches more efficiently.",
+	Run: func(cmd *cobra.Command, args []string) {
+		if len(args) > 0 {
+			cmd.Usage()
+			os.Exit(1)
+		}
 
-Usage:
+		var branches []*Branch
+		switch {
+		case listAll:
+			branches = allBranches()
+		case listRemote:
+			branches = remoteBranches()
+		default:
+			branches = localBranches()
+		}
+
+		if len(branches) == 0 {
+			return
+		}
+
+		branch := selectBranch(branches, listSize, hideHelp)
+		if branch != nil {
+			checkoutBranch(branch)
+		}
+	},
+}
+
+func init() {
+	rootCmd.Flags().BoolVarP(&listRemote, "remotes", "r", false, "")
+	rootCmd.Flags().BoolVarP(&listAll, "all", "a", false, "")
+	rootCmd.Flags().IntVarP(&listSize, "number", "n", 10, "")
+	rootCmd.Flags().BoolVarP(&hideHelp, "hide-help", "", false, "")
+
+	rootCmd.SetUsageFunc(func(*cobra.Command) error {
+		usage := `Usage:
   git checkout-branch [flags]
 
 Flags:
-  -r    List the remote-tracking branches
-  -a    List both remote-tracking branches and local branches
-  -n    Set the number of branches displayed in the list, defaults to 10
-`
-
-const help = `Error: unknown command "%s" for "git checkout-branch"
-Run 'git checkout-branch help' for usage.
-`
-
-func initFlags() {
-	flags = flag.NewFlagSet("", flag.ExitOnError)
-	flags.Usage = func() {
-		fmt.Fprint(stdout(), usage)
-	}
-	flags.IntVar(&listSize, "n", 10, "")
-	flags.BoolVar(&listRemote, "r", false, "")
-	flags.BoolVar(&listAll, "a", false, "")
+  -a, --all          List both remote-tracking branches and local branches
+  -r, --remotes      List the remote-tracking branches
+  -n, --number       Set the number of branches displayed in the list (default 10)
+      --hide-help    Hide the help information
+  -h, --help         Help for git-checkout-branch`
+		fmt.Println(usage)
+		os.Exit(1)
+		return nil
+	})
 }
 
 func main() {
-	initFlags()
-	flags.Parse(os.Args[1:])
-
-	if len(os.Args) > 1 {
-		cmd := os.Args[1]
-		if cmd == "help" {
-			flags.Usage()
-			return
-		}
-		if !isFlag(cmd) {
-			fmt.Fprintf(stderr(), help, cmd)
-			return
-		}
-	}
-
-	var branches []*Branch
-	switch {
-	case listAll:
-		branches = allBranches()
-	case listRemote:
-		branches = remoteBranches()
-	default:
-		branches = localBranches()
-	}
-
-	if len(branches) == 0 {
-		return
-	}
-
-	branch := selectBranch(branches, listSize)
-	if branch != nil {
-		checkoutBranch(branch)
+	if err := rootCmd.Execute(); err != nil {
+		fmt.Println(err)
+		os.Exit(1)
 	}
 }
 
-func selectBranch(branches []*Branch, size int) *Branch {
+func selectBranch(branches []*Branch, size int, hideHelp bool) *Branch {
 	iconSelect := promptui.Styler(promptui.FGGreen)("*")
 
 	templates := &promptui.SelectTemplates{
@@ -103,6 +103,7 @@ func selectBranch(branches []*Branch, size int) *Branch {
 		Templates: templates,
 		Size:      size,
 		Searcher:  searcher,
+		HideHelp:  hideHelp,
 	}
 
 	i, _, err := prompt.Run()
