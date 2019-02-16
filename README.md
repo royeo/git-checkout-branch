@@ -1,9 +1,9 @@
-# git checkout-branch
+# git-checkout-branch
 
 [![CircleCI](https://circleci.com/gh/royeo/git-checkout-branch.svg?style=shield)](https://circleci.com/gh/royeo/git-checkout-branch)
 [![Go Report Card](https://goreportcard.com/badge/royeo/git-checkout-branch)](https://goreportcard.com/report/royeo/git-checkout-branch)
 
-The `git checkout-branch` command is a custom git command to improve the efficiency of switching branches.
+The `git-checkout-branch` tool is a command-line tool for improving the efficiency of switching git branches.
 
 ## Features
 
@@ -18,22 +18,23 @@ Instructions:
 - Use the arrow keys to navigate: `↓` `↑` `→` `←`
 - You can also move up and down using `j` and `k`
 - Use `/` to toggle search
+- Press `ctrl + c` to quit
 
 ## Installation
 
-Use `go get` to install the `git checkout-branch` command:
+You can install the `git-checkout-branch` binary from GitHub Releases.
+
+```sh
+curl -sSL https://github.com/royeo/git-checkout-branch/releases/download/v0.2.0/git-checkout-branch-`uname -s`-`uname -m` -o /usr/local/bin/git-checkout-branch && chmod +x /usr/local/bin/git-checkout-branch
+```
+
+You can also use `go get` to install the `git-checkout-branch` binary:
 
 ```sh
 go get -u github.com/royeo/git-checkout-branch
 ```
 
 > make sure the `$GOPATH/bin` folder is in your `PATH`.
-
-If you are using the GO1.11 module, use the following command to install:
-
-```sh
-GO111MODULE=off go get -u github.com/royeo/git-checkout-branch
-```
 
 It is recommended to set up an alias for `checkout-branch`, such as `cb`.
 
