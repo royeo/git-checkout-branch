@@ -3,7 +3,7 @@
 [![CircleCI](https://circleci.com/gh/royeo/git-checkout-branch.svg?style=shield)](https://circleci.com/gh/royeo/git-checkout-branch)
 [![Go Report Card](https://goreportcard.com/badge/royeo/git-checkout-branch)](https://goreportcard.com/report/royeo/git-checkout-branch)
 
-The `git-checkout-branch` tool is a command-line tool for improving the efficiency of switching git branches.
+The `git-checkout-branch` tool is a command-line tool for improving the efficiency of switching git branches. It is an extended git command.
 
 ## Features
 
