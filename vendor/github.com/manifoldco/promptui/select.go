@@ -30,7 +30,7 @@ type Select struct {
 
 	// Items are the items to display inside the list. It expect a slice of any kind of values, including strings.
 	//
-	// If using a slice of strings, promptui will use those strings directly into its base templates or the
+	// If using a slice a strings, promptui will use those strings directly into its base templates or the
 	// provided templates. If using any other type in the slice, it will attempt to transform it into a string
 	// before giving it to its templates. Custom templates will override this behavior if using the dot notation
 	// inside the templates.
@@ -47,9 +47,6 @@ type Select struct {
 
 	// HideHelp sets whether to hide help information.
 	HideHelp bool
-
-	// HideSelected sets whether to hide the text displayed after an item is successfully selected.
-	HideSelected bool
 
 	// Templates can be used to customize the select output. If nil is passed, the
 	// default templates are used. See the SelectTemplates docs for more info.
@@ -379,14 +376,11 @@ func (s *Select) innerRun(cursorPos, scroll int, top rune) (int, string, error) 
 	items, idx := s.list.Items()
 	item := items[idx]
 
-	if s.HideSelected {
-		clearScreen(sb)
-	} else {
-		sb.Reset()
-		sb.Write(render(s.Templates.selected, item))
-		sb.Flush()
-	}
+	output := render(s.Templates.selected, item)
 
+	sb.Reset()
+	sb.Write(output)
+	sb.Flush()
 	rl.Write([]byte(showCursor))
 	rl.Close()
 
@@ -619,10 +613,4 @@ func render(tpl *template.Template, data interface{}) []byte {
 		return []byte(fmt.Sprintf("%v", data))
 	}
 	return buf.Bytes()
-}
-
-func clearScreen(sb *screenbuf.ScreenBuf) {
-	sb.Reset()
-	sb.Clear()
-	sb.Flush()
 }

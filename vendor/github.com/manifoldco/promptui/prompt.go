@@ -88,7 +88,7 @@ type PromptTemplates struct {
 	// inside the console.
 	Success string
 
-	// Prompt is a text/template for the prompt label when the value is invalid due to an error triggered by
+	// Prompt is a text/template for the prompt label when the value is invalid dur to an error triggered from
 	// the prompt's validation function.
 	ValidationError string
 

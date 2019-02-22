@@ -84,6 +84,7 @@ func selectBranch(branches []*Branch, size int, hideHelp bool) *Branch {
 		Label:    "{{ . }}",
 		Active:   iconSelect + " {{ .Name | green }}",
 		Inactive: "  {{ .Name }}",
+		Selected: promptui.IconGood + " {{ .Name }}",
 	}
 
 	searcher := func(input string, index int) bool {
@@ -96,13 +97,12 @@ func selectBranch(branches []*Branch, size int, hideHelp bool) *Branch {
 	label := strconv.Itoa(len(branches)) + " Branches:"
 
 	prompt := promptui.Select{
-		Label:        label,
-		Items:        branches,
-		Templates:    templates,
-		Size:         size,
-		Searcher:     searcher,
-		HideHelp:     hideHelp,
-		HideSelected: true,
+		Label:     label,
+		Items:     branches,
+		Templates: templates,
+		Size:      size,
+		Searcher:  searcher,
+		HideHelp:  hideHelp,
 	}
 
 	i, _, err := prompt.Run()
