@@ -25,7 +25,7 @@ Instructions:
 You can install the `git-checkout-branch` binary from GitHub Releases.
 
 ```sh
-curl -sSL https://github.com/royeo/git-checkout-branch/releases/download/v0.3.0/git-checkout-branch-`uname -s`-`uname -m` -o /usr/local/bin/git-checkout-branch && chmod +x /usr/local/bin/git-checkout-branch
+curl -sSL https://github.com/royeo/git-checkout-branch/releases/download/v0.4.0/git-checkout-branch-`uname -s`-`uname -m` -o /usr/local/bin/git-checkout-branch && chmod +x /usr/local/bin/git-checkout-branch
 ```
 
 You can also use `go get` to install the `git-checkout-branch` binary:
