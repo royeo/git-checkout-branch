@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"os"
 	"strconv"
@@ -12,10 +11,10 @@ import (
 )
 
 var (
-	flags      *flag.FlagSet
 	listSize   int
 	listAll    bool
 	listRemote bool
+	isDelete   bool
 	hideHelp   bool
 )
 
@@ -43,9 +42,14 @@ var rootCmd = &cobra.Command{
 		}
 
 		branch := selectBranch(branches, listSize, hideHelp)
-		if branch != nil {
-			checkoutBranch(branch)
+		if branch == nil {
+			return
 		}
+		if isDelete {
+			deleteBranch(branch)
+			return
+		}
+		checkoutBranch(branch)
 	},
 }
 
@@ -53,6 +57,7 @@ func init() {
 	rootCmd.Flags().BoolVarP(&listRemote, "remotes", "r", false, "")
 	rootCmd.Flags().BoolVarP(&listAll, "all", "a", false, "")
 	rootCmd.Flags().IntVarP(&listSize, "number", "n", 10, "")
+	rootCmd.Flags().BoolVarP(&isDelete, "delete", "d", false, "")
 	rootCmd.Flags().BoolVarP(&hideHelp, "hide-help", "", false, "")
 
 	rootCmd.SetUsageFunc(func(*cobra.Command) error {
@@ -63,6 +68,7 @@ Flags:
   -a, --all          List both remote-tracking branches and local branches
   -r, --remotes      List the remote-tracking branches
   -n, --number       Set the number of branches displayed in the list (default 10)
+  -d, --delete       Delete a branch
       --hide-help    Hide the help information`
 		fmt.Println(usage)
 		os.Exit(1)

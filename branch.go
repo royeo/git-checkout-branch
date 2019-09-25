@@ -49,6 +49,10 @@ func checkoutBranch(b *Branch) {
 	cmdRun("git", "checkout", extractBranch(b.Name))
 }
 
+func deleteBranch(b *Branch) {
+	cmdRun("git", "branch", "-d", extractBranch(b.Name))
+}
+
 func extractBranch(name string) string {
 	if strings.Contains(name, "->") {
 		s := strings.Split(name, "->")
