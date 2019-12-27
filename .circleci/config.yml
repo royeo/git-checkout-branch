@@ -11,9 +11,9 @@ jobs:
       - run: make tool
       - run: make lint
       - run: make test
-  go1.11_test:
+  go1.13_test:
     docker:
-      - image: circleci/golang:1.11
+      - image: circleci/golang:1.13
     steps:
       - checkout
       - run: export GO111MODULE=on
@@ -26,4 +26,4 @@ workflows:
   test:
     jobs:
       - go1.10_test
-      - go1.11_test
+      - go1.13_test
