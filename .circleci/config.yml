@@ -1,9 +1,9 @@
 version: 2
 
 jobs:
-  go1.10_test:
+  golang_1.10:
     docker:
-      - image: circleci/golang:1.10
+      - image: golang:1.10
     working_directory: /go/src/github.com/royeo/git-checkout-branch
     steps:
       - checkout
@@ -11,9 +11,9 @@ jobs:
       - run: make tool
       - run: make lint
       - run: make test
-  go1.13_test:
+  golang_latest:
     docker:
-      - image: circleci/golang:1.13
+      - image: golang:latest
     steps:
       - checkout
       - run: export GO111MODULE=on
@@ -25,5 +25,5 @@ workflows:
   version: 2
   test:
     jobs:
-      - go1.10_test
-      - go1.13_test
+      - golang_1.10
+      - golang_latest
