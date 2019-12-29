@@ -1,17 +1,7 @@
 version: 2
 
 jobs:
-  golang_1.10:
-    docker:
-      - image: golang:1.10
-    working_directory: /go/src/github.com/royeo/git-checkout-branch
-    steps:
-      - checkout
-      - run: go get ./...
-      - run: make tool
-      - run: make lint
-      - run: make test
-  golang_latest:
+  build:
     docker:
       - image: golang:latest
     steps:
@@ -25,5 +15,4 @@ workflows:
   version: 2
   test:
     jobs:
-      - golang_1.10
-      - golang_latest
+      - build
