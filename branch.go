@@ -9,12 +9,6 @@ type Branch struct {
 	Name string
 }
 
-// currentBranch returns the current branch.
-func currentBranch() *Branch {
-	name := strings.TrimSpace(cmdOutput("git", "rev-parse", "--abbrev-ref", "HEAD"))
-	return &Branch{Name: name}
-}
-
 // localBranches returns the local branches.
 func localBranches() []*Branch {
 	return splitBranch(cmdOutput("git", "branch"))
